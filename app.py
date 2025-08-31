@@ -141,10 +141,10 @@ def process_documents(files):
         # Create vector store
         embeddings = load_embeddings()
         st.session_state.vectorstore = Chroma.from_documents(
-            documents=chunks, 
-            embedding=embeddings,
-            persist_directory="./chroma_db"
+            documents=chunks,
+            embedding=embeddings
         )
+
         st.session_state.vectorstore.persist()
         
         st.success(f"Processed {len(documents)} documents with {len(chunks)} chunks!")
@@ -269,4 +269,5 @@ with st.sidebar:
     st.divider()
     st.write(f"**Conversation memory:** {len(st.session_state.chat_history)} messages")
     if st.button("View Memory Details"):
+
         st.write(st.session_state.memory.load_memory_variables({}))
