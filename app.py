@@ -9,7 +9,8 @@ from langchain_groq import ChatGroq
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 # from langchain.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
+# from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 # from langchain.document_loaders import PyPDFLoader, UnstructuredFileLoader
 from langchain_community.document_loaders import PyPDFLoader, UnstructuredFileLoader
 from langchain.chains import ConversationalRetrievalChain
@@ -139,9 +140,8 @@ def process_documents(files):
         chunks = text_splitter.split_documents(documents)
         
         embeddings = load_embeddings()
-
-        # ✅ In-memory Chroma (NO persist_directory)
-        st.session_state.vectorstore = Chroma.from_documents(
+        
+        st.session_state.vectorstore = FAISS.from_documents(
             documents=chunks,
             embedding=embeddings
         )
@@ -270,4 +270,5 @@ with st.sidebar:
     st.write(f"**Conversation memory:** {len(st.session_state.chat_history)} messages")
     if st.button("View Memory Details"):
         st.write(st.session_state.memory.load_memory_variables({}))
+
 
