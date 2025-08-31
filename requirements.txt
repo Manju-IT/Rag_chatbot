@@ -1,0 +1,24 @@
+# requirements.txt
+# streamlit
+# langchain
+# langchain-groq
+# python-dotenv
+# pypdf
+# pdfplumber
+# unstructured
+# chromadb
+# sentence-transformers
+# tiktoken
+# streamlit-chat
+
+streamlit
+streamlit-chat
+python-dotenv
+langchain
+langchain-groq
+langchain-huggingface
+langchain-community
+chromadb
+pypdf
+unstructured
+huggingface-hub
