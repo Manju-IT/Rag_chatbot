@@ -102,7 +102,8 @@ def load_embeddings():
         model_kwargs={'device': 'cpu'}
     )
 
-# Process uploaded files
+
+
 def process_documents(files):
     documents = []
     for file in files:
@@ -130,7 +131,6 @@ def process_documents(files):
             os.unlink(tmp_file_path)
     
     if documents:
-        # Split documents into chunks
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000,
             chunk_overlap=200,
@@ -138,17 +138,17 @@ def process_documents(files):
         )
         chunks = text_splitter.split_documents(documents)
         
-        # Create vector store
         embeddings = load_embeddings()
+
+        # ✅ In-memory Chroma (NO persist_directory)
         st.session_state.vectorstore = Chroma.from_documents(
-            documents=chunks, 
-            embedding=embeddings,
-            # persist_directory="./chroma_db"
+            documents=chunks,
+            embedding=embeddings
         )
-        st.session_state.vectorstore.persist()
         
         st.success(f"Processed {len(documents)} documents with {len(chunks)} chunks!")
     return True
+
 
 # Process documents when button is clicked
 if process_clicked and uploaded_files:
@@ -270,3 +270,4 @@ with st.sidebar:
     st.write(f"**Conversation memory:** {len(st.session_state.chat_history)} messages")
     if st.button("View Memory Details"):
         st.write(st.session_state.memory.load_memory_variables({}))
+
