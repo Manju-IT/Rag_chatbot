@@ -25,4 +25,6 @@ huggingface-hub
 sentence-transformers
 transformers
 torch
+pysqlite3
+
 
