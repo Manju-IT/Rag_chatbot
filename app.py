@@ -159,8 +159,6 @@ def process_documents(files):
         st.session_state.vectorstore = Chroma.from_documents(
             documents=chunks,
             embedding=embeddings,
-        
-            persist_directory=persist_dir
         )
         st.session_state.vectorstore.persist()
         
@@ -288,4 +286,5 @@ with st.sidebar:
     if st.button("View Memory Details"):
 
         st.write(st.session_state.memory.load_memory_variables({}))
+
 
