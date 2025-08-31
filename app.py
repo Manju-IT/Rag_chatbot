@@ -1,12 +1,4 @@
 # app.py - Enhanced with Memory and Context
-try:
-    import sys
-    import pysqlite3
-    sys.modules["sqlite3"] = pysqlite3
-    sys.modules["sqlite"] = pysqlite3
-except Exception:
-    pass
-
 import os
 import tempfile
 import streamlit as st
@@ -147,18 +139,11 @@ def process_documents(files):
         chunks = text_splitter.split_documents(documents)
         
         # Create vector store
-        # embeddings = load_embeddings()
-        # st.session_state.vectorstore = Chroma.from_documents(
-        #     documents=chunks,
-        #     embedding=embeddings
-        # )
-
-        # st.session_state.vectorstore.persist()
         embeddings = load_embeddings()
-        persist_dir = os.path.join(os.getcwd(), "chroma_db")
         st.session_state.vectorstore = Chroma.from_documents(
-            documents=chunks,
+            documents=chunks, 
             embedding=embeddings,
+            # persist_directory="./chroma_db"
         )
         st.session_state.vectorstore.persist()
         
@@ -284,7 +269,4 @@ with st.sidebar:
     st.divider()
     st.write(f"**Conversation memory:** {len(st.session_state.chat_history)} messages")
     if st.button("View Memory Details"):
-
         st.write(st.session_state.memory.load_memory_variables({}))
-
-
