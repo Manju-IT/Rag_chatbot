@@ -169,7 +169,7 @@ def get_qa_chain():
     You are a helpful assistant that answers questions based on provided documents.
     Use the following pieces of context to answer the question at the end. 
     If you dont know the answer, just fetch answer from web or internet and show source as from the Web.
-    Always cite your sources by including the document name in your response.
+    
     Previous conversation:
     {chat_history}
     
@@ -272,6 +272,7 @@ with st.sidebar:
     st.write(f"**Conversation memory:** {len(st.session_state.chat_history)} messages")
     if st.button("View Memory Details"):
         st.write(st.session_state.memory.load_memory_variables({}))
+
 
 
 
