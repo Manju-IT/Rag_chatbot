@@ -22,3 +22,7 @@ chromadb
 pypdf
 unstructured
 huggingface-hub
+sentence-transformers
+transformers
+torch
+
